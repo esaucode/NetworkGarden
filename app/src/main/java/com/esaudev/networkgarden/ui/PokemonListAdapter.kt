@@ -1,9 +1,13 @@
 package com.esaudev.networkgarden.ui
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import com.esaudev.networkgarden.R
 import com.esaudev.networkgarden.databinding.ItemPokemonBinding
 import com.esaudev.networkgarden.domain.extension.load
 import com.esaudev.networkgarden.domain.model.Pokemon
@@ -35,18 +39,69 @@ class PokemonListAdapter(
             tvPokemonName.text = item.name
             ivPokemonImage.load(item.image)
 
+            selectedBackground.visibility = if (item.isSelected) View.VISIBLE else View.GONE
+
             clPokemonItem.setOnClickListener {
-                onPokemonClickListener?.let { click ->
-                    click(item)
+                onPokemonClickListener?.let { action ->
+                    if (_actionModeEnabled.value == true) {
+                        currentList[position].isSelected = !currentList[position].isSelected
+                        if (currentList.none { it.isSelected }) {
+                            toggleActionMode(isEnabled = false)
+                        }
+                        notifyItemChanged(position)
+                    } else {
+                        action(item)
+                    }
                 }
+            }
+
+            clPokemonItem.setOnLongClickListener {
+
+                onPokemonLongClickListener?.let { action ->
+                    if (_actionModeEnabled.value == false) {
+                        toggleActionMode(isEnabled = true)
+                        currentList[position].isSelected = !currentList[position].isSelected
+                        notifyItemChanged(position)
+                        action(item)
+                    }
+                }
+
+                true
             }
         }
     }
 
     private var onPokemonClickListener: ((Pokemon) -> Unit)? = null
+    private var onPokemonLongClickListener: ((Pokemon) -> Unit)? = null
+
+    private val _actionModeEnabled : MutableLiveData<Boolean> = MutableLiveData(false)
+    val actionModeEnabled : LiveData<Boolean>
+        get() = _actionModeEnabled
 
     fun setPokemonClickListener(listener: (Pokemon) -> Unit) {
         onPokemonClickListener = listener
+    }
+
+    fun setPokemonLongClickListener(listener: (Pokemon) -> Unit) {
+        onPokemonLongClickListener = listener
+    }
+
+    fun toggleActionMode(isEnabled: Boolean) {
+        _actionModeEnabled.value = isEnabled
+    }
+
+    fun disableActionMode() {
+        toggleActionMode(isEnabled = false)
+        currentList.onEach { it.isSelected = false }
+        notifyDataSetChanged()
+    }
+
+    fun deleteSelection() {
+        val listWithoutSelection = currentList.filter { !it.isSelected }.toMutableList()
+        submitList(listWithoutSelection) {
+            notifyItemRangeChanged(0, currentList.size)
+        }
+        toggleActionMode(isEnabled = false)
     }
 
 }
