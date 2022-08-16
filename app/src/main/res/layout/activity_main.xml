@@ -7,10 +7,10 @@
     tools:context=".ui.MainActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/pokemonList"
+        android:id="@+id/moviesCatalog"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        tools:listitem="@layout/item_pokemon"
+        tools:listitem="@layout/item_movie_catalog"
         tools:itemCount="10"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintTop_toTopOf="parent"

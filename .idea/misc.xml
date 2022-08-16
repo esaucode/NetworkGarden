@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Esau/AndroidStudioProjects/NetworkGarden/app/src/main/res/layout/activity_main.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/Esau/AndroidStudioProjects/NetworkGarden/app/src/main/res/layout/item_movie.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/Esau/AndroidStudioProjects/NetworkGarden/app/src/main/res/layout/item_movie_catalog.xml" value="0.1" />
         <entry key="..\:/Users/Esau/AndroidStudioProjects/NetworkGarden/app/src/main/res/layout/item_pokemon.xml" value="0.25" />
       </map>
     </option>
@@ -13,5 +15,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.358695652173913" />
+      </ProjectState>
+    </option>
   </component>
 </project>

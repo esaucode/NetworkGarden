@@ -2,15 +2,17 @@ package com.esaudev.networkgarden.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
-import com.esaudev.networkgarden.R
 import com.esaudev.networkgarden.databinding.ActivityMainBinding
+import com.esaudev.networkgarden.ui.nested.MoviesCatalogListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private val pokemonListAdapter = PokemonListAdapter()
+    private val moviesCatalogListAdapter = MoviesCatalogListAdapter()
 
     private val viewModel: MainViewModel by viewModels()
 
@@ -24,18 +26,22 @@ class MainActivity : AppCompatActivity() {
 
         initRecyclerView()
         subscribeObservers()
-        viewModel.getAllPokemon()
+        viewModel.getMoviesCatalog()
     }
 
     private fun initRecyclerView() {
-        binding.pokemonList.apply {
-            adapter = pokemonListAdapter
+        binding.moviesCatalog.apply {
+            adapter = moviesCatalogListAdapter
+        }
+
+        moviesCatalogListAdapter.setMovieClickListener {
+            Toast.makeText(this, it.name, Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun subscribeObservers() {
-        viewModel.pokemonList.observe(this) {
-            pokemonListAdapter.submitList(it)
+        viewModel.catalogList.observe(this) {
+            moviesCatalogListAdapter.submitList(it)
         }
     }
 }
