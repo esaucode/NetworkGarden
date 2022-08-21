@@ -9,7 +9,7 @@ la red asi como de librerias de terceros.
 * Capítulo 12: Listas anidadas con recyclerview
 
 #### Videos:
-* Especial : https://www.youtube.com/watch?v=M7oFO4hRX1E&t=1s
+* Especial: https://www.youtube.com/watch?v=M7oFO4hRX1E&t=1s
 * Capítulo 11: https://www.youtube.com/watch?v=SV0Z_ll-zMc&t=1s
 * Capítulo 12: https://www.youtube.com/watch?v=x42it-4oMbA&t=1s
 
